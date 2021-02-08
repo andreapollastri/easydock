@@ -56,11 +56,11 @@ if [ $1 == "export" ]; then
     clear
     ed_logo
     unlink ./.env.ed
-    cp ./easydock/src/stanalone/.edenv ./.env.ed
+    cp ./src/standalone/.edenv ./.env.ed
     unlink ./docker-compose.yml
-    cp ./easydock/src/stanalone/.compose ./docker-compose.yml
+    cp ./src/standalone/.compose ./docker-compose.yml
     unlink ./ed
-    cp ./easydock/src/stanalone/.script ./ed
+    cp ./src/standalone/.script ./ed
     sed -i -e 's/APP_SID=easydock/APP_SID=easydock'$(((RANDOM%1000000000)+1))'/g' .env.ed
     unlink ./.env.ed-e
     clear
@@ -80,7 +80,7 @@ if [ $1 == "env" ]; then
     if test -f "./.env.ed"; then
         echo "${bgyellow}${black}${bold} >>> WARNING! ${reset} an .env.ed file is located in your workspace. Delete it if you want regenerate it within this command. ${reset}${br}"
     else
-        cp ./easydock/src/stanalone/.edenv ./.env.ed
+        cp ./src/standalone/.edenv ./.env.ed
         sed -i -e 's/APP_SID=easydock/APP_SID=easydock'$(((RANDOM%1000000000)+1))'/g' .env.ed
         unlink ./.env.ed-e
         clear
@@ -253,8 +253,8 @@ ed_reset() {
         docker-compose --env-file ./.env.ed rm
         clear
         ed_logo
-        rm -rf ./easydock/mysql/data/*
-        cp ./easydock/src/common/.datagitignore ./easydock/mysql/data/.gitignore
+        rm -rf ./mysql/data/*
+        cp ./src/common/.datagitignore ./mysql/data/.gitignore
         ed_logo
         echo "${bgpurple}${white} easydock ;) has been reset! ${reset}"
     fi
