@@ -26,7 +26,7 @@ Easydock comes with:
 
 ## Requirements
 
-Docker Desktop and Composer on Mac OSx El Capitan or newer (M1 compatible)
+Docker Desktop and Composer on Mac OSx (M1 compatible)
 
 ## Installation
 
@@ -37,8 +37,6 @@ $ cd /path/to/your-php-application
 $ composer require andreapollastri/easydock
 $ sh ./vendor/andreapollastri/easydock/src/.easydock export
 ```
-
-- Configure your application path into `.env.docker` file
 
 ## Getting started
 
