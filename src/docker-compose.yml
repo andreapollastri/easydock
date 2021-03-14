@@ -8,7 +8,6 @@ services:
       dockerfile: ./vendor/andreapollastri/easydock/Dockerfile
       args:
         - PHP_V=${PHP_V}
-        - LARAVEL_WORKER=${LARAVEL_WORKER}
     container_name: ${APP_SID}-app
     restart: always
     tty: true
