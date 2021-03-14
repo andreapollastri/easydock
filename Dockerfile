@@ -1,6 +1,5 @@
 #Dockerfile Args
 ARG PHP_V
-ARG LARAVEL_WORKER
 
 # PHP version
 FROM php:${PHP_V}-fpm
