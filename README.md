@@ -118,12 +118,11 @@ $ sh ed setup
              "log": true,
              "externalConsole": false,
              "pathMappings": {
-                 "/": "${workspaceFolder}",
-                 //"/": "${workspaceFolder}",
+                 "/var/www": "${workspaceFolder}",
              },
-             //"ignore": [
-                 //"**/vendor/**/*.php"
-             //]
+             "ignore": [
+                 "**/vendor/**/*.php"
+             ]
         },
     ]
 }
