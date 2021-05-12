@@ -9,6 +9,7 @@ services:
       args:
         - PHP_V=${PHP_V}
         - NODE_V=${NODE_V}
+
     container_name: ${APP_SID}-app
     restart: always
     tty: true
