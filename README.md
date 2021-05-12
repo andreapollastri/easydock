@@ -23,6 +23,7 @@ Easydock comes with:
 - npm
 - Git
 - Composer
+- xDebug
 
 ## Requirements
 
@@ -102,6 +103,31 @@ $ sh ed setup
 ```
 
 **NB: Database data will be removed**
+
+- vsCode xDebug configuration:
+
+```
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+             "name": "Listen for XDebug",
+             "type": "php",
+             "request": "launch",
+             "port": 9000,
+             "log": true,
+             "externalConsole": false,
+             "pathMappings": {
+                 "/": "${workspaceFolder}",
+                 //"/": "${workspaceFolder}",
+             },
+             //"ignore": [
+                 //"**/vendor/**/*.php"
+             //]
+        },
+    ]
+}
+```
 
 ## Security Vulnerabilities and Bugs
 
