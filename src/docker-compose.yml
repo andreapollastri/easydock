@@ -18,7 +18,7 @@ services:
     working_dir: /var/www
     volumes:
       - ${APP_PATH-./}:/var/www/:cached
-      - ${ED_PATH-./vendor/andreapollastri/easydock}/config/php/php_{$DEBUG-nodebug}_{$PHP_8-8}.ini:/usr/local/etc/php/conf.d/local.ini
+      - ${ED_PATH-./vendor/andreapollastri/easydock}/config/php/php_{$X_DEBUG-nodebug}_{$PHP_INI-8}.ini:/usr/local/etc/php/conf.d/local.ini
       - ${ED_PATH-./vendor/andreapollastri/easydock}/config/php/opcache.ini:/usr/local/etc/php/conf.d/opcache.ini
 
   #NGINX
