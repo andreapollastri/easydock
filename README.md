@@ -14,20 +14,19 @@ Docker LEMP easy integration
 Easydock comes with:
 
 - nginx
-- PHP (PHP-FPM 5.x, 7.x and 8.x)
-- MySql (latest version of mariadb)
+- PHP (PHP-FPM 8.x)
+- MySql (latest version of mariadb or mysql)
 - Redis
-- phpmyadmin
 - MailHog
-- node.js
-- npm
-- Git
+- node/npm
+- GIT
 - Composer
 - xDebug
 
 ## Requirements
 
-Docker Desktop and Composer on Mac OSx (M1 compatible)
+Docker Desktop and Composer on Mac OSx (M1 compatible if you use mariadb db image)
+ 
 
 ## Installation
 
@@ -41,14 +40,14 @@ $ sh ./vendor/andreapollastri/easydock/src/.easydock export
 
 ## Getting started
 
-- After installation, if you need, configure your `.env.docker` file and run:
+- After installation, if you need, configure your `.env.easydock` file and run:
+```
+$ sh ed up
+```
 
-```
-$ sh ed setup
-```
+- Nginx config will expose your project `/public` folder
 
 - Config your app DB connection (default)
-
 ```
 user: root
 pass: secret
@@ -57,54 +56,37 @@ host: mysql ( or redis for Redis )
 ```
 
 - Config your app SMTP conn (default - no user or pass are required)
-
 ```
 host: mailhog
 port: 1025
 ```
 
-- Nginx config will expose your project `/public` folder
-
-- To start your Docker istance:
-
-```
-$ sh ed up
-```
-
 - To "SSH" into your Docker istance:
-
 ```
 $ sh ed conn
 ```
 
 - To stop your Docker istance:
-
 ```
 $ sh ed down
 ```
 
 - You can get application info using:
-
 ```
 $ sh ed info
 ```
 
-- You can reset your Docker istance running:
-
+- You can reset your Docker istance running: **NB: Database data will be removed**
 ```
 $ sh ed reset
 ```
 
-- Everytime you change PHP version into `.env.docker` file you have to run:
+ 
+## xDebug configuration for vsCode
 
-```
-$ sh ed reset
-$ sh ed setup
-```
+- Set xdebug mode to vscode into your env.easydock file 
 
-**NB: Database data will be removed**
-
-- vsCode xDebug configuration:
+- Configure vsCode within:
 
 ```
 {
@@ -140,4 +122,5 @@ Thank you for considering contributing to this project!
 
 Easydock is open-source software licensed under the MIT license.
 
+ 
 ### Enjoy easydock ;)
