@@ -14,14 +14,13 @@ Docker LEMP easy integration
 Easydock comes with:
 
 - nginx
-- PHP (PHP-FPM 8.x)
+- PHP (PHP-FPM 5.x, 7.x or 8.x)
 - MySql (latest version of mariadb or mysql)
 - Redis
 - MailHog
 - node/npm
 - GIT
 - Composer
-- xDebug
 
 ## Requirements
 
@@ -76,39 +75,13 @@ $ sh ed down
 $ sh ed info
 ```
 
-- You can reset your Docker istance running: **NB: Database data will be removed**
+- You can reset your Docker istance running:
 ```
 $ sh ed reset
 ```
-
+**NB: Database data will be removed**
  
-## xDebug configuration for vsCode
-
-- Set xdebug mode to vscode into your env.easydock file 
-
-- Configure vsCode within:
-
-```
-{
-    "version": "0.2.0",
-    "configurations": [
-        {
-             "name": "Listen for XDebug",
-             "type": "php",
-             "request": "launch",
-             "port": 9000,
-             "log": true,
-             "externalConsole": false,
-             "pathMappings": {
-                 "/var/www": "${workspaceFolder}",
-             },
-             "ignore": [
-                 "**/vendor/**/*.php"
-             ]
-        },
-    ]
-}
-```
+  
 
 ## Security Vulnerabilities and Bugs
 
