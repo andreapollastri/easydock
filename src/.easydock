@@ -65,7 +65,7 @@ if [ $1 == "export" ]; then
     unlink ./.env.easydock-e
     clear
     ed_logo
-    echo "${bgpurple}${white} easydock is ready! All you have to do is compile your ${bold}.env.easydock${reset}${bgpurple}${white} file and run ${bold}sh ed setup${reset}${bgpurple}${white} ${br}${reset}"
+    echo "${bgpurple}${white} easydock is ready! All you have to do is compile your ${bold}.env.easydock${reset}${bgpurple}${white} file and run ${bold}sh ed up${reset}${bgpurple}${white} ${br}${reset}"
     exit
 fi
 
@@ -102,11 +102,10 @@ fi
 
 ed_portapp=$(grep APP_PORT ./.env.easydock | cut -d '=' -f2)
 ed_portdb=$(grep DB_PORT ./.env.easydock | cut -d '=' -f2)
-ed_portpma=$(grep PMA_PORT ./.env.easydock | cut -d '=' -f2)
 ed_portmh=$(grep MH_PORT ./.env.easydock | cut -d '=' -f2)
 ed_portrds=$(grep RDS_PORT ./.env.easydock | cut -d '=' -f2)
 ed_appsid=$(grep APP_SID ./.env.easydock | cut -d '=' -f2)
-ed_appsrc=$(grep APP_SRC ./.env.easydock | cut -d '=' -f2)
+ed_appsrc=$(grep APP_PATH ./.env.easydock | cut -d '=' -f2)
 ed_phpver=$(grep PHP_V ./.env.easydock | cut -d '=' -f2)
 ed_dbver=$(grep DB_VERS ./.env.easydock | cut -d '=' -f2)
 ed_dbimage=$(grep DB_IMAGE ./.env.easydock | cut -d '=' -f2)
@@ -186,16 +185,14 @@ ed_portscheck() {
 
 ed_help() {
     echo "${bgpurple}${white}${bold} easydock Options List ${reset}${br}${br}"
-    echo "${bgwhite}${black} sh ed setup ${reset}"
-    echo "Useful to bootstrap and init easydock system.${br}"
     echo "${bgwhite}${black} sh ed up ${reset}"
-    echo "Useful to start easydock system.${br}"
+    echo "Useful to start easydock.${br}"
     echo "${bgwhite}${black} sh ed down ${reset}"
-    echo "Useful to stop easydock system.${br}"
+    echo "Useful to stop easydock.${br}"
     echo "${bgwhite}${black} sh ed conn ${reset}"
-    echo "Useful to SSH into easydock system.${br}"
+    echo "Useful to SSH into easydock.${br}"
     echo "${bgwhite}${black} sh ed reset ${reset}"
-    echo "Useful to reset easydock system.${br}"
+    echo "Useful to reset easydock.${br}"
     echo "${bgwhite}${black} sh ed info ${reset}"
     echo "Useful to get easydock configuration information.${br}${br}"
 }
@@ -224,7 +221,6 @@ ed_info() {
     echo "USER: ${underline}not required${reset}"
     echo "PASS: ${underline}not required${reset}${br}"
     echo "${bold}SERVICE${reset}"
-    echo "phpmyadmin                 http://localhost:$ed_portpma"
     echo "Mail Hog                   http://localhost:$ed_portmh ${br}"
 }
 
@@ -288,19 +284,6 @@ ed_conn() {
     docker-compose --env-file ./.env.easydock exec app /bin/bash
 }
 
-ed_setup() {
-    ed_portscheck
-    echo "${blue}Wait... ${reset}${br}"
-    sleep 1s
-    clear
-    ed_logo
-    echo "${bgblue}${white} Pulling Docker images ${reset}${br}"
-    docker-compose --env-file ./.env.easydock build --no-cache --pull
-    clear
-    ed_logo
-    echo "${bgpurple}${white} easydock is ready! Run ${bgwhite}${black} sh ed up ${reset}"
-}
-
 ############################################################ CLI MENU
 
 while [ -n "$menu" ]; do
@@ -313,11 +296,6 @@ while [ -n "$menu" ]; do
     info)
         shift
         ed_info
-        exit
-        ;;
-    setup)
-        shift
-        ed_setup
         exit
         ;;
     reset)

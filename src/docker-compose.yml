@@ -18,7 +18,7 @@ services:
     working_dir: /var/www
     volumes:
       - ${APP_PATH-./}:/var/www/:cached
-      - ${ED_PATH-./vendor/andreapollastri/easydock}/config/php/php_{$X_DEBUG-nodebug}_{$PHP_INI-8}.ini:/usr/local/etc/php/conf.d/local.ini
+      - ${ED_PATH-./vendor/andreapollastri/easydock}/config/php/php_{$DEBUG_MODE-nodebug}.ini:/usr/local/etc/php/conf.d/local.ini
       - ${ED_PATH-./vendor/andreapollastri/easydock}/config/php/opcache.ini:/usr/local/etc/php/conf.d/opcache.ini
 
   #NGINX
@@ -35,7 +35,7 @@ services:
 
   #MYSQL
   mysql:
-    image: ${DB_IMAGE-mariadb:latest}
+    image: ${DB_IMAGE-mariadb}:latest
     container_name: ${APP_SID-easydock}-mysql
     restart: always
     tty: true
@@ -57,17 +57,6 @@ services:
       - 6379
     ports:
       - ${RDS_PORT-6379}:6379
-
-  #PHPMYADMIN
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin:latest
-    container_name: ${APP_SID-easydock}-pma
-    restart: always
-    environment:
-      PMA_HOST: mysql
-      MYSQL_ROOT_PASSWORD: ${DB_PASS-secret}
-    ports:
-      - ${PMA_PORT-8080}:80
 
   #MAILHOG
   mailhog:
