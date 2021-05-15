@@ -107,11 +107,8 @@ ed_portrds=$(grep RDS_PORT ./.env.easydock | cut -d '=' -f2)
 ed_appsid=$(grep APP_SID ./.env.easydock | cut -d '=' -f2)
 ed_appsrc=$(grep APP_PATH ./.env.easydock | cut -d '=' -f2)
 ed_phpver=$(grep PHP_V ./.env.easydock | cut -d '=' -f2)
-ed_dbver=$(grep DB_VERS ./.env.easydock | cut -d '=' -f2)
-ed_dbimage=$(grep DB_IMAGE ./.env.easydock | cut -d '=' -f2)
 ed_dbname=$(grep DB_NAME ./.env.easydock | cut -d '=' -f2)
 ed_dbpass=$(grep DB_PASS ./.env.easydock | cut -d '=' -f2)
-ed_nginx=$(grep NGINX_MODE ./.env.easydock | cut -d '=' -f2)
 
 ############################################################ COMMON FUNCTIONS
 
@@ -209,7 +206,7 @@ ed_info() {
     else
         echo "HOST: http://localhost:$ed_portapp"
     fi
-    echo "STACK: php:$ed_phpver and $ed_dbimage ${br}"
+    echo "STACK: nginx, PHP-FPM $ed_phpver and mariadb ${br}"
     echo "${bold}MYSQL${reset}"
     echo "HOST: mysql:3306 (int) / 127.0.0.1:$ed_portdb (ext)"
     echo "NAME: $ed_dbname"
@@ -221,7 +218,7 @@ ed_info() {
     echo "USER: ${underline}not required${reset}"
     echo "PASS: ${underline}not required${reset}${br}"
     echo "${bold}SERVICE${reset}"
-    echo "Mail Hog                   http://localhost:$ed_portmh ${br}"
+    echo "Mail Hog: http://localhost:$ed_portmh ${br}"
 }
 
 ed_reset() {
