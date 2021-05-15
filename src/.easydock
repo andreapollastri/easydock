@@ -102,11 +102,10 @@ fi
 
 ed_portapp=$(grep APP_PORT ./.env.easydock | cut -d '=' -f2)
 ed_portdb=$(grep DB_PORT ./.env.easydock | cut -d '=' -f2)
-ed_portpma=$(grep PMA_PORT ./.env.easydock | cut -d '=' -f2)
 ed_portmh=$(grep MH_PORT ./.env.easydock | cut -d '=' -f2)
 ed_portrds=$(grep RDS_PORT ./.env.easydock | cut -d '=' -f2)
 ed_appsid=$(grep APP_SID ./.env.easydock | cut -d '=' -f2)
-ed_appsrc=$(grep APP_SRC ./.env.easydock | cut -d '=' -f2)
+ed_appsrc=$(grep APP_PATH ./.env.easydock | cut -d '=' -f2)
 ed_phpver=$(grep PHP_V ./.env.easydock | cut -d '=' -f2)
 ed_dbver=$(grep DB_VERS ./.env.easydock | cut -d '=' -f2)
 ed_dbimage=$(grep DB_IMAGE ./.env.easydock | cut -d '=' -f2)
@@ -222,7 +221,6 @@ ed_info() {
     echo "USER: ${underline}not required${reset}"
     echo "PASS: ${underline}not required${reset}${br}"
     echo "${bold}SERVICE${reset}"
-    echo "phpmyadmin                 http://localhost:$ed_portpma"
     echo "Mail Hog                   http://localhost:$ed_portmh ${br}"
 }
 
