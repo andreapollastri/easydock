@@ -123,6 +123,7 @@ ed_notfound() {
 }
 
 ed_isthisportfree() {
+    return 1
     port="$1"
     check=$(lsof -i tcp:$port)
     if [ -z "$check" ]; then
@@ -255,7 +256,7 @@ ed_up() {
     ed_portscheck
     clear
     ed_logo
-    docker-compose --env-file ./.env.easydock up -d --force-recreate
+    docker-compose --env-file ./.env.easydock up -d --force-recreate --build
     clear
     ed_logo
     if [ $ed_portapp == "80" ]; then
