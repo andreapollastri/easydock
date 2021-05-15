@@ -73,7 +73,6 @@ RUN apt-get install ${PHP_V}-gd || true
 RUN docker-php-ext-install gd && docker-php-ext-enable gd || true
 RUN docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg --with-webp || true
 RUN docker-php-ext-configure gd --with-gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/ --with-webp-dir=/usr/include/ || true
-RUN pecl install xdebug && docker-php-ext-enable xdebug
 
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
