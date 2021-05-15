@@ -5,76 +5,76 @@ services:
   app:
     build:
       context: .
-      dockerfile: ./vendor/andreapollastri/easydock/Dockerfile
+      dockerfile: ${ED_PATH-./vendor/andreapollastri/easydock}/Dockerfile
       args:
-        - PHP_V=${PHP_V}
-        - NODE_V=${NODE_V}
+        - PHP_V=${PHP_V-8.0}
+        - NODE_V=${NODE_V-16}
 
-    container_name: ${APP_SID}-app
+    container_name: ${APP_SID-easydock}-app
     restart: always
     tty: true
     environment:
       SERVICE_NAME: app
     working_dir: /var/www
     volumes:
-      - ./:/var/www/:cached
-      - ./vendor/andreapollastri/easydock/config/php/php.ini:/usr/local/etc/php/conf.d/local.ini
-      - ./vendor/andreapollastri/easydock/config/php/opcache.ini:/usr/local/etc/php/conf.d/opcache.ini
+      - ${APP_PATH-./}:/var/www/:cached
+      - ${ED_PATH-./vendor/andreapollastri/easydock}/config/php/php_{$DEBUG-nodebug}_{$PHP_8-8}.ini:/usr/local/etc/php/conf.d/local.ini
+      - ${ED_PATH-./vendor/andreapollastri/easydock}/config/php/opcache.ini:/usr/local/etc/php/conf.d/opcache.ini
 
   #NGINX
   nginx:
     image: nginx:alpine
-    container_name: ${APP_SID}-nginx
+    container_name: ${APP_SID-easydock}-nginx
     restart: always
     tty: true
     ports:
       - ${APP_PORT}:80
     volumes:
-      - ./:/var/www/
-      - ./vendor/andreapollastri/easydock/config/nginx/:/etc/nginx/conf.d/
+      - ${APP_PATH-./}:/var/www/
+      - ${ED_PATH-./vendor/andreapollastri/easydock}/config/nginx/:/etc/nginx/conf.d/
 
   #MYSQL
   mysql:
-    image: mariadb:latest
-    container_name: ${APP_SID}-mysql
+    image: ${DB_IMAGE-mariadb:latest}
+    container_name: ${APP_SID-easydock}-mysql
     restart: always
     tty: true
     ports:
-      - ${DB_PORT}:3306
+      - ${DB_PORT-3306}:3306
     environment:
-      MYSQL_DATABASE: ${DB_NAME}
-      MYSQL_ROOT_PASSWORD: ${DB_PASS}
+      MYSQL_DATABASE: ${DB_NAME-dockerdb}
+      MYSQL_ROOT_PASSWORD: ${DB_PASS-secret}
     command: ['--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci','--default-authentication-plugin=mysql_native_password']
     volumes:
-      - ./vendor/andreapollastri/easydock/data:/var/lib/mysql/
+      - ${ED_PATH-./vendor/andreapollastri/easydock}/data:/var/lib/mysql/
 
   #REDIS
   redis:
     image: redis:latest
-    container_name: ${APP_SID}-redis
+    container_name: ${APP_SID-easydock}-redis
     restart: always
     expose:
       - 6379
     ports:
-      - ${RDS_PORT}:6379
+      - ${RDS_PORT-6379}:6379
 
   #PHPMYADMIN
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
-    container_name: ${APP_SID}-pma
+    container_name: ${APP_SID-easydock}-pma
     restart: always
     environment:
       PMA_HOST: mysql
-      MYSQL_ROOT_PASSWORD: ${DB_PASS}
+      MYSQL_ROOT_PASSWORD: ${DB_PASS-secret}
     ports:
-      - ${PMA_PORT}:80
+      - ${PMA_PORT-8080}:80
 
   #MAILHOG
   mailhog:
     image: mailhog/mailhog:latest
-    container_name: ${APP_SID}-mailhog
+    container_name: ${APP_SID-easydock}-mailhog
     restart: always
     expose:
       - 1025
     ports:
-      - ${MH_PORT}:8025
+      - ${MH_PORT-8025}:8025
