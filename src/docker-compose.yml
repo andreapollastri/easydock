@@ -35,7 +35,7 @@ services:
 
   #MYSQL
   mysql:
-    image: ${DB_IMAGE-mariadb:latest}
+    image: ${DB_IMAGE-mariadb}:latest
     container_name: ${APP_SID-easydock}-mysql
     restart: always
     tty: true
