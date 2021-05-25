@@ -33,43 +33,43 @@ RUN apt-get update && \
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install PHP extensions
-RUN apt-get install ${PHP_V}-common || true 
+RUN apt-get install php-common || true 
 RUN docker-php-ext-install common || true
-RUN apt-get install ${PHP_V}-pear || true
+RUN apt-get install php-pear || true
 RUN docker-php-ext-install pear && docker-php-ext-enable pear || true    
-RUN apt-get install ${PHP_V}-intl || true
+RUN apt-get install php-intl || true
 RUN docker-php-ext-install intl && docker-php-ext-enable intl || true
-RUN apt-get install ${PHP_V}-opcache || true
+RUN apt-get install php-opcache || true
 RUN docker-php-ext-install opcache && docker-php-ext-enable opcache || true
-RUN apt-get install ${PHP_V}-pdo || true
+RUN apt-get install php-pdo || true
 RUN docker-php-ext-install pdo_mysql && docker-php-ext-enable pdo_mysql || true
-RUN apt-get install ${PHP_V}-mbstring || true 
+RUN apt-get install php-mbstring || true 
 RUN docker-php-ext-install mbstring && docker-php-ext-enable mbstring || true
-RUN apt-get install ${PHP_V}-zip || true 
+RUN apt-get install php-zip || true 
 RUN docker-php-ext-install zip && docker-php-ext-enable zip || true
-RUN apt-get install ${PHP_V}-memcache || true 
+RUN apt-get install php-memcache || true 
 RUN docker-php-ext-install memcache && docker-php-ext-enable memcache || true
-RUN apt-get install ${PHP_V}-json || true 
+RUN apt-get install php-json || true 
 RUN docker-php-ext-install json && docker-php-ext-enable json || true
-RUN apt-get install ${PHP_V}-xml || true 
+RUN apt-get install php-xml || true 
 RUN docker-php-ext-install xml && docker-php-ext-enable xml || true
-RUN apt-get install ${PHP_V}-exif || true 
+RUN apt-get install php-exif || true 
 RUN docker-php-ext-install exif && docker-php-ext-enable exif || true
-RUN apt-get install ${PHP_V}-redis || true 
+RUN apt-get install php-redis || true 
 RUN docker-php-ext-install redis && docker-php-ext-enable redis || true
-RUN apt-get install ${PHP_V}-mongodb || true 
+RUN apt-get install php-mongodb || true 
 RUN docker-php-ext-install mongodb && docker-php-ext-enable mongodb || true
-RUN apt-get install ${PHP_V}-bcmatch || true 
+RUN apt-get install php-bcmatch || true 
 RUN docker-php-ext-install bcmatch && docker-php-ext-enable bcmatch || true
-RUN apt-get install ${PHP_V}-ctype || true 
+RUN apt-get install php-ctype || true 
 RUN docker-php-ext-install ctype && docker-php-ext-enable ctype || true
-RUN apt-get install ${PHP_V}-ccurl || true 
+RUN apt-get install php-curl || true 
 RUN docker-php-ext-install curl && docker-php-ext-enable curl || true
 RUN apt-get update && apt-get install -y libmagickwand-dev --no-install-recommends && rm -rf /var/lib/apt/lists/* || true
 RUN pecl install imagick || true
 RUN docker-php-ext-enable imagick || true
 RUN apk add libpng libpng-dev libjpeg-turbo-dev libwebp-dev zlib-dev libxpm-dev gd && docker-php-ext-install gd || true
-RUN apt-get install ${PHP_V}-gd || true 
+RUN apt-get install php-gd || true 
 RUN docker-php-ext-install gd && docker-php-ext-enable gd || true
 RUN docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg --with-webp || true
 RUN docker-php-ext-configure gd --with-gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/ --with-webp-dir=/usr/include/ || true
