@@ -110,22 +110,24 @@ ed_notfound() {
 }
 
 ed_help() {
-    echo "${bgpurple}${white}${bold} easydock Options List (use just 'ed' in VsCode DevContainer) ${reset}${br}${br}"
+    echo "${bgpurple}${white}${bold} Easydock options list (use just 'ed' in vscode devcontainers) ${reset}${br}${br}"
     echo "${bgwhite}${black} sh ed up ${reset}"
-    echo "Useful to start easydock (do not use it in VsCode DevContainer).${br}"
+    echo "Useful to start easydock (do not use it in vscode devcontainers).${br}"
     echo "${bgwhite}${black} sh ed down ${reset}"
-    echo "Useful to stop easydock (do not use it in VsCode DevContainer).${br}"
+    echo "Useful to stop easydock (do not use it in vscode devcontainers).${br}"
     echo "${bgwhite}${black} sh ed conn ${reset}"
-    echo "Useful to SSH into easydock (do not use it in VsCode DevContainer).${br}"
+    echo "Useful to SSH into easydock (do not use it in vscode devcontainers).${br}"
     echo "${bgwhite}${black} sh ed reset ${reset}"
     echo "Useful to reset easydock.${br}"
     echo "${bgwhite}${black} sh ed csfix ${reset}"
     echo "Useful to run a PHP CS Fix process on your codebase.${br}"
-    echo "${bgwhite}${black} sh ed phpstan {directory} ${reset}"
+    echo "${bgwhite}${black} sh ed phpstan ${reset}"
+    echo "Useful to run a PHP STAN process on your /app dir codebase (useful for Laravel).${br}"
+    echo "${bgwhite}${black} sh ed phpstandir {directory} ${reset}"
     echo "Useful to run a PHP STAN process on your codebase dir.${br}"
-    echo "${bgwhite}${black} sh ed testall ${reset}"
+    echo "${bgwhite}${black} sh ed test ${reset}"
     echo "Useful to run a all PHPUnit tests.${br}"
-    echo "${bgwhite}${black} sh ed test {filter} ${reset}"
+    echo "${bgwhite}${black} sh ed testonly {filter} ${reset}"
     echo "Useful to run a filtered PHPUnit test.${br}"
 }
 
@@ -150,6 +152,7 @@ ed_reset() {
     echo ${br}
 }
 
+
 ed_up() {
     echo "${blue}Wait...${br}${reset}"
     sleep 1s
@@ -167,6 +170,7 @@ ed_up() {
     fi
 }
 
+
 ed_down() {
     read -r -p "Are you sure to stop easydock? (Y/n): " -n 1 -r
     if [[ $REPLY =~ ^[Yy]$ ]]; then
@@ -178,6 +182,7 @@ ed_down() {
     fi
     echo ${br}
 }
+
 
 ed_conn() {
     echo "${blue}Wait... ${reset}${br}"
@@ -201,6 +206,16 @@ ed_csfix() {
 
 
 ed_phpstan() {
+    echo "${blue}Wait... ${reset}${br}"
+    sleep 1s
+    clear
+    ed_logo
+    echo "${bgblue}${white} PHP STAN ${reset}${br}"
+    ./vendor/bin/phpstan analyse ./app
+}
+
+
+ed_phpstandir() {
     echo "${blue}Wait... ${reset}${br}"
     sleep 1s
     clear
@@ -271,15 +286,20 @@ while [ -n "$menu" ]; do
         ;;
     phpstan)
         shift
-        ed_phpstan $action
+        ed_phpstan
         exit
         ;;
-    testall)
+    phpstandir)
+        shift
+        ed_phpstandir $action
+        exit
+        ;;
+    test)
         shift
         ed_testall
         exit
         ;;
-    test)
+    testonly)
         shift
         ed_test $action
         exit
