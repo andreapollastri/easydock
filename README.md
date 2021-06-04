@@ -22,6 +22,7 @@ Easydock comes with:
 - GIT
 - Composer
 - vscode devcontainer mode support
+- PHP Unit, CS Fix and PHP Stan tools
 
 ## Requirements
 
@@ -118,7 +119,11 @@ $ sh ed info
 ```
 $ sh ed reset
 ```
-**NB: Database data will be removed**
+
+- To discover all Easydock functions use:
+```
+$ sh ed help
+```
  
   
 
