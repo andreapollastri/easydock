@@ -41,7 +41,7 @@ $ sh ./vendor/andreapollastri/easydock/src/.easydock export
 
 To use easydock in VsCode Devcontainer Mode, run:
 ```
-$ sh ./vendor/andreapollastri/easydock/src/.easydock export
+$ sh ./vendor/andreapollastri/easydock/src/.easydock devcontainer
 ```
 
 ## Getting started
