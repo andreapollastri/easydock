@@ -22,7 +22,7 @@ Easydock comes with:
 - GIT
 - Composer
 - vscode devcontainers mode support
-- PHP Unit, CS Fix and PHP Stan tools
+- PHP Unit, CS Fix and PHP Stan tools (you can use them in pipelines too)
 
 ## Requirements
 Docker Desktop and Composer on Mac OSx (M1 compatible)
