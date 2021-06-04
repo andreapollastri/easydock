@@ -81,7 +81,15 @@ fi
 if [ $1 == "devcontainer" ]; then
     clear
     ed_logo
-    echo "${blue}TODO...${br}${reset}"
+    rm -rf ./.devcontainer 
+    mkdir ./.devcontainer 
+    cp ./vendor/andreapollastri/easydock/src/devcontainer.yml ./.devcontainer/devcontainer.yml
+    unlink ./ed
+    cp ./vendor/andreapollastri/easydock/src/devcontainer-dc.yml ./.devcontainer/docker-compose.yml
+    clear
+    ed_logo
+    echo "${bgpurple}${white} easydock [DEVCONTAINER MORE] is ready!${reset}"
+    exit
 fi
 
 
