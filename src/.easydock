@@ -68,9 +68,10 @@ if [ $1 == "export" ]; then
     unlink ./ed
     cp ./vendor/andreapollastri/easydock/src/.easydock ./ed
     sed -i -e 's/${APP_SID-easydock}/${APP_SID-easydock'$(((RANDOM%1000000000)+1))'}/g' ./docker-compose.yml
+    unlink ./docker-compose.yml-e
     clear
     ed_logo
-    echo "${bgpurple}${white} easydock is ready! All you have to do is run ${bold}sh ed up${reset}${bgpurple}${white} ${br}${reset}"
+    echo "${bgpurple}${white} easydock is ready! All you have to do is run ${bold}sh ed up${reset}"
     exit
 fi
 
@@ -85,6 +86,14 @@ fi
 
 
 ############################################################ COMMON FUNCTIONS
+
+ed_welcome() {
+    command="$1"
+    clear
+    ed_logo
+    echo "${bgpurple}${white} easydock [DEVCONTAINER MODE] is ready!${reset}"
+}
+
 
 ed_notfound() {
     command="$1"
@@ -104,6 +113,7 @@ ed_help() {
     echo "${bgwhite}${black} sh ed reset ${reset}"
     echo "Useful to reset easydock.${br}"
 }
+
 
 ############################################################ EASYDOCK RESET
 
@@ -187,6 +197,16 @@ while [ -n "$menu" ]; do
     conn)
         shift
         ed_conn
+        exit
+        ;;
+    help)
+        shift
+        ed_help
+        exit
+        ;;
+    welcome)
+        shift
+        ed_welcome
         exit
         ;;
     *)
