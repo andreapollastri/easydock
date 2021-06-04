@@ -69,47 +69,6 @@ if [ $1 == "export" ]; then
     exit
 fi
 
-############################################################ ENV FILE MANAGER
-
-if [ $1 == "env" ]; then
-    clear
-    ed_logo
-    echo "${blue}Wait...${br}${reset}"
-    clear
-    ed_logo
-    if test -f "./.env.easydock"; then
-        echo "${bgyellow}${black}${bold} >>> WARNING! ${reset} an .env.easydock file is located in your workspace. Delete it if you want regenerate it within this command. ${reset}${br}"
-    else
-        cp ./vendor/andreapollastri/easydock/src/.env.easydock ./.env.easydock
-        sed -i -e 's/APP_SID=easydock/APP_SID=easydock'$(((RANDOM%1000000000)+1))'/g' .env.easydock
-        unlink ./.env.easydock-e
-        clear
-        ed_logo
-        echo "${bgpurple}${white} Your ${bold}.env.easydock${reset}${bgpurple}${white} has been created ${br}${reset}"
-    fi
-    exit
-fi
-
-if test -f "./.env.easydock"; then
-    clear
-    ed_logo
-else
-    clear
-    ed_logo
-    echo "${bgwhite}${red}${bold} >>> ERROR! ${reset} File ${bgred}${white}${bold} .env.easydock ${reset} is missing. Run ${bgred}${white}${bold} sh ed env ${reset} to generate it. ${reset}${br}"
-    exit
-fi
-
-ed_portapp=$(grep APP_PORT ./.env.easydock | cut -d '=' -f2)
-ed_portdb=$(grep DB_PORT ./.env.easydock | cut -d '=' -f2)
-ed_portmh=$(grep MH_PORT ./.env.easydock | cut -d '=' -f2)
-ed_portrds=$(grep RDS_PORT ./.env.easydock | cut -d '=' -f2)
-ed_appsid=$(grep APP_SID ./.env.easydock | cut -d '=' -f2)
-ed_appsrc=$(grep APP_PATH ./.env.easydock | cut -d '=' -f2)
-ed_phpver=$(grep PHP_V ./.env.easydock | cut -d '=' -f2)
-ed_dbname=$(grep DB_NAME ./.env.easydock | cut -d '=' -f2)
-ed_dbpass=$(grep DB_PASS ./.env.easydock | cut -d '=' -f2)
-
 ############################################################ COMMON FUNCTIONS
 
 ed_notfound() {
@@ -119,107 +78,7 @@ ed_notfound() {
     echo "${bgwhite}${red}${bold} >>> ERROR! ${reset} Command ${bgred}${white}${bold} sh ed $command ${reset} is not a valid option. Run ${bgred}${white}${bold} sh ed help ${reset} to obtain a list of valid options. ${reset}${br}"
 }
 
-ed_isthisportfree() {
-    port="$1"
-    check=$(lsof -i tcp:$port)
-    if [ -z "$check" ]; then
-        return 0
-    else
-        return 1
-    fi
-}
-
-ed_unavailableport() {
-    port=$1
-    echo "${bgwhite}${red}${bold} >>> ERROR! ${reset} Port: ${bgred}${white}${bold} $port ${reset} is used. Try another port. ${reset}${br}"
-    exit
-}
-
-ed_availableport() {
-    port=$1
-    echo "${green}$port is available!${reset}"
-}
-
-ed_checkingport() {
-    port=$1
-    echo "${br}${blue}Checkin port $port...${reset}"
-}
-
-ed_portscheck() {
-    ed_checkingport $ed_portapp
-    if ed_isthisportfree $ed_portapp; then
-        ed_availableport $ed_portapp
-    else
-        ed_unavailableport $ed_portapp
-    fi
-    ed_checkingport $ed_portdb
-    if ed_isthisportfree $ed_portdb; then
-        ed_availableport $ed_portdb
-    else
-        ed_unavailableport $ed_portdb
-    fi
-    ed_checkingport $ed_portpma
-    if ed_isthisportfree $ed_portpma; then
-        ed_availableport $ed_portpma
-    else
-        ed_unavailableport $ed_portpma
-    fi
-    ed_checkingport $ed_portmh
-    if ed_isthisportfree $ed_portmh; then
-        ed_availableport $ed_portmh
-    else
-        ed_unavailableport $ed_portmh
-    fi
-    ed_checkingport $ed_portrds
-    if ed_isthisportfree $ed_portrds; then
-        ed_availableport $ed_portrds
-    else
-        ed_unavailableport $ed_portrds
-    fi
-}
-
-############################################################ CLI FUNCTIONS
-
-ed_help() {
-    echo "${bgpurple}${white}${bold} easydock Options List ${reset}${br}${br}"
-    echo "${bgwhite}${black} sh ed up ${reset}"
-    echo "Useful to start easydock.${br}"
-    echo "${bgwhite}${black} sh ed down ${reset}"
-    echo "Useful to stop easydock.${br}"
-    echo "${bgwhite}${black} sh ed conn ${reset}"
-    echo "Useful to SSH into easydock.${br}"
-    echo "${bgwhite}${black} sh ed reset ${reset}"
-    echo "Useful to reset easydock.${br}"
-    echo "${bgwhite}${black} sh ed info ${reset}"
-    echo "Useful to get easydock configuration information.${br}${br}"
-}
-
-
-ed_info() {
-    echo "${bgpurple}${white}${bold} easydock System Information ${reset}${br}"
-    echo "NAME: $ed_appsid"
-    echo "PATH: $ed_appsrc"
-    echo "DOCUMENT ROOT: /var/www/public"
-    echo "CATCH ALL FILE: index.php"
-    if [ $ed_portapp == "80" ]; then
-        echo "HOST: http://localhost"
-    else
-        echo "HOST: http://localhost:$ed_portapp"
-    fi
-    echo "STACK: nginx, PHP-FPM $ed_phpver and mariadb ${br}"
-    echo "${bold}MYSQL${reset}"
-    echo "HOST: mysql:3306 (int) / 127.0.0.1:$ed_portdb (ext)"
-    echo "NAME: $ed_dbname"
-    echo "USER: root"
-    echo "PASS: $ed_dbpass ${br}"
-    echo "${bold}SMTP${reset}"
-    echo "HOST: mailhog"
-    echo "PORT: 1025"
-    echo "USER: ${underline}not required${reset}"
-    echo "PASS: ${underline}not required${reset}${br}"
-    echo "${bold}SERVICE${reset}"
-    echo "Mail Hog: http://localhost:$ed_portmh ${br}"
-}
+############################################################ EASYDOCK RESET
 
 ed_reset() {
     read -r -p "Are you sure to reset easydock (this command will reset container and database)? (Y/n): " -n 1 -r
@@ -227,8 +86,8 @@ ed_reset() {
         echo "${br}${br}${blue}Wait...${br}${reset}"
         clear
         ed_logo
-        docker-compose --env-file ./.env.easydock down -v
-        docker-compose --env-file ./.env.easydock rm
+        docker-compose down -v
+        docker-compose rm
         clear
         ed_logo
         rm -rf ./vendor/andreapollastri/easydock/data/*
@@ -243,13 +102,10 @@ ed_up() {
     echo "${blue}Wait...${br}${reset}"
     sleep 1s
     clear
-    docker-compose --env-file ./.env.easydock down
+    docker-compose down
     clear
     ed_logo
-    ed_portscheck
-    clear
-    ed_logo
-    docker-compose --env-file ./.env.easydock up -d --force-recreate --build
+    docker-compose up -d --force-recreate --build
     clear
     ed_logo
     if [ $ed_portapp == "80" ]; then
@@ -263,7 +119,7 @@ ed_down() {
     read -r -p "Are you sure to stop easydock? (Y/n): " -n 1 -r
     if [[ $REPLY =~ ^[Yy]$ ]]; then
         echo "${br}${br}${blue}Wait...${br}${reset}"
-        docker-compose --env-file ./.env.easydock down
+        docker-compose down
         clear
         ed_logo
         echo "${bgpurple}${white} easydock has been stopped! ${reset}"
@@ -278,23 +134,13 @@ ed_conn() {
     ed_logo
     echo "${bgblue}${white} Container CLI ${reset}${br}"
     echo "Run ${bgwhite}${black} exit ${reset} to return on your device CLI.${br}"
-    docker-compose --env-file ./.env.easydock exec app /bin/bash
+    docker-compose exec app /bin/bash
 }
 
 ############################################################ CLI MENU
 
 while [ -n "$menu" ]; do
     case $menu in
-    help)
-        shift
-        ed_help
-        exit
-        ;;
-    info)
-        shift
-        ed_info
-        exit
-        ;;
     reset)
         shift
         ed_reset $action
