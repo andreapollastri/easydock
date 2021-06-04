@@ -64,8 +64,8 @@ if [ $1 == "export" ]; then
     clear
     ed_logo
     unlink ./docker-compose.yml
-    cp ./vendor/andreapollastri/easydock/src/docker-compose.yml ./docker-compose.yml
     unlink ./ed
+    cp ./vendor/andreapollastri/easydock/src/docker-compose.yml ./docker-compose.yml
     cp ./vendor/andreapollastri/easydock/src/.easydock ./ed
     sed -i -e 's/${APP_SID-easydock}/${APP_SID-easydock'$(((RANDOM%1000000000)+1))'}/g' ./docker-compose.yml
     unlink ./docker-compose.yml-e
@@ -120,6 +120,14 @@ ed_help() {
     echo "Useful to SSH into easydock.${br}"
     echo "${bgwhite}${black} sh ed reset ${reset}"
     echo "Useful to reset easydock.${br}"
+    echo "${bgwhite}${black} sh ed csfix ${reset}"
+    echo "Useful to run a PHP CS Fix process on your codebase.${br}"
+    echo "${bgwhite}${black} sh ed phpstan {directory} ${reset}"
+    echo "Useful to run a PHP STAN process on your codebase dir.${br}"
+    echo "${bgwhite}${black} sh ed testall {directory} ${reset}"
+    echo "Useful to run a all PHPUnit tests.${br}"
+    echo "${bgwhite}${black} sh ed test {filter} ${reset}"
+    echo "Useful to run a filtered PHPUnit test.${br}"
 }
 
 
@@ -183,13 +191,56 @@ ed_conn() {
 }
 
 
+ed_csfix() {
+    echo "${blue}Wait... ${reset}${br}"
+    sleep 1s
+    clear
+    ed_logo
+    echo "${bgblue}${white} PHP CS FIX ${reset}${br}"
+    ./vendor/bin/php-cs-fixer fix ./
+}
+
+
+ed_phpstan() {
+    echo "${blue}Wait... ${reset}${br}"
+    sleep 1s
+    clear
+    ed_logo
+    echo "${bgblue}${white} PHP STAN ${reset}${br}"
+    if
+    ./vendor/bin/phpstan analyse ./$action
+}
+
+
+ed_testall() {
+    echo "${blue}Wait... ${reset}${br}"
+    sleep 1s
+    clear
+    ed_logo
+    echo "${bgblue}${white} PHPUNIT TEST ${reset}${br}"
+    if
+    ./vendor/bin/phpunit
+}
+
+
+ed_test() {
+    echo "${blue}Wait... ${reset}${br}"
+    sleep 1s
+    clear
+    ed_logo
+    echo "${bgblue}${white} PHPUNIT TEST ${reset}${br}"
+    if
+    ./vendor/bin/phpunit --filter $action
+}
+
+
 ############################################################ CLI MENU
 
 while [ -n "$menu" ]; do
     case $menu in
     reset)
         shift
-        ed_reset $action
+        ed_reset
         exit
         ;;
     up)
@@ -215,6 +266,26 @@ while [ -n "$menu" ]; do
     welcome)
         shift
         ed_welcome
+        exit
+        ;;
+    csfix)
+        shift
+        ed_csfix
+        exit
+        ;;
+    phpstan)
+        shift
+        ed_phpstan $action
+        exit
+        ;;
+    testall)
+        shift
+        ed_testall
+        exit
+        ;;
+    test)
+        shift
+        ed_test $action
         exit
         ;;
     *)
