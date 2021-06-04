@@ -93,6 +93,7 @@ RUN useradd -u 1000 -ms /bin/bash -g www www
 
 # User aliases
 RUN echo 'alias ll="ls -al"' >> /home/www/.bashrc
+RUN echo 'alias ed="sh ed"' >> /home/www/.bashrc
 
 # User permissions
 RUN chown -R www:www /var/www
