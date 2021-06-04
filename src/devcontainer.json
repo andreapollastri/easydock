@@ -1,0 +1,33 @@
+{
+	"name": "easydock ;) devcontainer",
+	"dockerComposeFile": [
+		"../docker-compose.yml",
+		"docker-compose.yml"
+	],
+	"service": "app",
+	"workspaceFolder": "/var/www",
+	"settings": {
+		"terminal.integrated.profiles.windows": {
+			"PowerShell -NoProfile": {
+				"source": "PowerShell",
+				"args": [
+					"-NoProfile"
+				]
+			}
+		},
+		"terminal.integrated.profiles.linux": {
+			"zsh (login)": {
+				"path": "zsh",
+				"args": [
+					"-l"
+				]
+			}
+		}
+	},
+	"extensions": [],
+	"forwardPorts": [],
+	"runServices": [],
+	"shutdownAction": "stopCompose",
+	"postCreateCommand": "clear",
+	"remoteUser": "www"
+}
