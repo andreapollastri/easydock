@@ -28,6 +28,6 @@
 	"forwardPorts": [],
 	"runServices": [],
 	"shutdownAction": "stopCompose",
-	"postCreateCommand": "clear",
+	"postCreateCommand": "sh ed welcome",
 	"remoteUser": "www"
 }

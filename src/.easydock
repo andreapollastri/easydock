@@ -207,7 +207,6 @@ ed_phpstan() {
     clear
     ed_logo
     echo "${bgblue}${white} PHP STAN ${reset}${br}"
-    if
     ./vendor/bin/phpstan analyse ./$action
 }
 
@@ -218,7 +217,6 @@ ed_testall() {
     clear
     ed_logo
     echo "${bgblue}${white} PHPUNIT TEST ${reset}${br}"
-    if
     ./vendor/bin/phpunit
 }
 
@@ -229,7 +227,6 @@ ed_test() {
     clear
     ed_logo
     echo "${bgblue}${white} PHPUNIT TEST ${reset}${br}"
-    if
     ./vendor/bin/phpunit --filter $action
 }
 
