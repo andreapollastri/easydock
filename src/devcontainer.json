@@ -41,7 +41,11 @@
 		"ms-azuretools.vscode-docker",
 		"ms-vscode-remote.remote-containers",
 		"onecentlin.laravel5-snippets",
-		"thekalinga.bootstrap4-vscode"
+		"thekalinga.bootstrap4-vscode",
+		"wcwhitehead.bootstrap-3-snippets",
+		"hollowtree.vue-snippets",
+		"jcbuisson.vue",
+		"hookyqr.minify"
 	],
 	"forwardPorts": [],
 	"runServices": [],
