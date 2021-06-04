@@ -21,6 +21,7 @@ Easydock comes with:
 - node/npm
 - GIT
 - Composer
+- vscode devcontainer mode support
 
 ## Requirements
 
@@ -37,9 +38,47 @@ $ composer require andreapollastri/easydock
 $ sh ./vendor/andreapollastri/easydock/src/.easydock export
 ```
 
+To use easydock in VsCode Devcontainer Mode, run:
+```
+$ sh ./vendor/andreapollastri/easydock/src/.easydock export
+```
+
 ## Getting started
 
-- After installation, if you need, configure your `.env.easydock` file and run:
+- After installation, if you need, add these vars to your `.env` file (default values are declared yet):
+```
+# APPLICATION NAME (unique app-service-id)
+APP_SID=easydock
+
+# APPLICATION SOURCE PATH
+APP_PATH=./
+
+# APP PORT
+APP_PORT=80
+
+# PHP VERSION
+PHP_V=8.0
+
+# MYSQL DB NAME
+DB_NAME=dockerdb
+
+# MYSQL ROOTPASSWORD
+DB_PASS=secret
+
+# MYSQL DB PORT
+DB_PORT=3306
+
+# REDIS PORT
+RDS_PORT=6379
+
+# MAILHOG PORT
+MH_PORT=8025
+
+# NODE VERSION
+NODE_V=16
+```
+
+- If you are not running Easydock into VsCode Devcontainer Mode, to start run:
 ```
 $ sh ed up
 ```

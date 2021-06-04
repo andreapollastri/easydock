@@ -7,5 +7,10 @@
         "lemp",
         "php"
     ],
-    "license": "MIT"
+    "license": "MIT",
+    "require": {
+        "phpunit/phpunit": "^9.5",
+        "phpstan/phpstan": "^0.12.88",
+        "friendsofphp/php-cs-fixer": "^3.0"
+    }
 }
