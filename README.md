@@ -14,23 +14,21 @@ Docker LEMP easy integration
 Easydock comes with:
 
 - nginx
-- PHP (PHP-FPM 5.x, 7.x or 8.x)
+- PHP (PHP-FPM 5.6, 7.1, 7.2, 7.3, 7.4 or 8.0)
 - MySql (latest version of mariadb)
 - Redis
 - MailHog
 - node/npm
 - GIT
 - Composer
-- vscode devcontainer mode support
+- vscode devcontainers mode support
 - PHP Unit, CS Fix and PHP Stan tools
 
 ## Requirements
-
 Docker Desktop and Composer on Mac OSx (M1 compatible)
  
 
 ## Installation
-
 - Integrate easydock in your PHP app via Composer
 
 ```
@@ -39,13 +37,7 @@ $ composer require andreapollastri/easydock
 $ sh ./vendor/andreapollastri/easydock/src/.easydock export
 ```
 
-To use easydock in VsCode Devcontainer Mode, run:
-```
-$ sh ./vendor/andreapollastri/easydock/src/.easydock devcontainer
-```
-
 ## Getting started
-
 - After installation, if you need, add these vars to your `.env` file (default values are declared yet):
 ```
 # APPLICATION NAME (unique app-service-id)
@@ -79,10 +71,29 @@ MH_PORT=8025
 NODE_V=16
 ```
 
-- If you are not running Easydock into VsCode Devcontainer Mode, to start run:
+- To use easydock in vscode devcontainer mode, run:
+```
+$ sh ./vendor/andreapollastri/easydock/src/.easydock devcontainer
+```
+Then build container via vscode.
+
+
+- If you are not running Easydock into vscode devcontainer mode, use:
 ```
 $ sh ed up
 ```
+to start your istance
+
+```
+$ sh ed conn
+```
+to "SSH" into your Docker istance
+
+```
+$ sh ed down
+```
+to stop your istance
+
 
 - Nginx config will expose your project `/public` folder
 
@@ -100,43 +111,18 @@ host: mailhog
 port: 1025
 ```
 
-- To "SSH" into your Docker istance:
-```
-$ sh ed conn
-```
-
-- To stop your Docker istance:
-```
-$ sh ed down
-```
-
-- You can get application info using:
-```
-$ sh ed info
-```
-
-- You can reset your Docker istance running:
-```
-$ sh ed reset
-```
-
 - To discover all Easydock functions use:
 ```
 $ sh ed help
 ```
- 
-  
 
 ## Security Vulnerabilities and Bugs
-
 If you discover any security vulnerability or any bug within easydock, please open an issue.
 
 ## Contributing
-
 Thank you for considering contributing to this project!
 
 ## Licence
-
 Easydock is open-source software licensed under the MIT license.
 
  
