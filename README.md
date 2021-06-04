@@ -21,6 +21,7 @@ Easydock comes with:
 - node/npm
 - GIT
 - Composer
+- vscode devcontainer mode support
 
 ## Requirements
 
@@ -36,6 +37,7 @@ $ cd /path/to/your-php-application
 $ composer require andreapollastri/easydock
 $ sh ./vendor/andreapollastri/easydock/src/.easydock export
 ```
+
 To use easydock in VsCode Devcontainer Mode, run:
 ```
 $ sh ./vendor/andreapollastri/easydock/src/.easydock export
