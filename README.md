@@ -15,7 +15,7 @@ Easydock comes with:
 
 - nginx
 - PHP (PHP-FPM 5.6, 7.1, 7.2, 7.3, 7.4 or 8.0)
-- MySql (latest version of mariadb)
+- MySql (MySql 8)
 - Redis
 - MailHog
 - node/npm
@@ -110,6 +110,13 @@ host: mysql ( or redis for Redis )
 host: mailhog
 port: 1025
 ```
+
+- To create a Laravel .env file for Easydock, run:
+```
+$ sh ./vendor/andreapollastri/easydock/src/.easydock laraenv
+```
+Then build container via vscode.
+ 
 
 - To discover all Easydock functions use:
 ```

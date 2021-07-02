@@ -65,6 +65,10 @@ ed_export() {
     ed_logo
     unlink ./docker-compose.yml
     unlink ./ed
+    cp ./vendor/andreapollastri/easydock/src/nginx.conf ./easydock/nginx.conf
+    cp ./vendor/andreapollastri/easydock/src/mysql.cnf ./easydock/mysql.cnf
+    cp ./vendor/andreapollastri/easydock/src/opcache.ini ./easydock/opcache.ini
+    cp ./vendor/andreapollastri/easydock/src/php.ini ./easydock/php.ini
     cp ./vendor/andreapollastri/easydock/src/docker-compose.yml ./docker-compose.yml
     cp ./vendor/andreapollastri/easydock/src/.easydock ./ed
     sed -i -e 's/${APP_SID-easydock}/${APP_SID-easydock'$(((RANDOM%1000000000)+1))'}/g' ./docker-compose.yml
@@ -72,6 +76,25 @@ ed_export() {
     clear
     ed_logo
     echo "${bgpurple}${white} easydock is ready! All you have to do is run ${bold}sh ed up${reset}"
+    exit
+}
+
+
+
+
+############################################################ LARAVEL END
+
+ed_laraenv() {
+    clear
+    ed_logo
+    echo "${blue}Wait...${br}${reset}"
+    clear
+    ed_logo
+    unlink ./.env
+    cp ./vendor/andreapollastri/easydock/src/laravel.env ./.env
+    clear
+    ed_logo
+    echo "${bgpurple}${white} Laravel .env file has been updated! "
     exit
 }
 
@@ -117,6 +140,8 @@ ed_help() {
     echo "Useful to stop easydock (do not use it in vscode devcontainers).${br}"
     echo "${bgwhite}${black} sh ed conn ${reset}"
     echo "Useful to SSH into easydock (do not use it in vscode devcontainers).${br}"
+    echo "${bgwhite}${black} sh ed laraenv ${reset}"
+    echo "Useful to create a .env file optimized for Laravel and Easydock (this action will remove current .env file).${br}"
     echo "${bgwhite}${black} sh ed reset ${reset}"
     echo "Useful to reset easydock.${br}"
     echo "${bgwhite}${black} sh ed csfix ${reset}"
@@ -277,6 +302,11 @@ while [ -n "$menu" ]; do
     welcome)
         shift
         ed_welcome
+        exit
+        ;;
+    laraenv)
+        shift
+        ed_laraenv
         exit
         ;;
     csfix)
