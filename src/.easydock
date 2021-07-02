@@ -57,37 +57,53 @@ fi
 
 ############################################################ VENDOR EXPORT
 
+
+
 ed_export() {
     clear
     ed_logo
-    echo "${blue}Wait...${br}${reset}"
+    echo "${blue}Wait...${br}${reset} "
     clear
     ed_logo
     unlink ./docker-compose.yml
     unlink ./ed
+    rm -rf ./.easydock
+    mkdir ./.easydock
+    cp ./vendor/andreapollastri/easydock/src/nginx.conf ./.easydock/nginx.conf
+    cp ./vendor/andreapollastri/easydock/src/mysql.cnf ./.easydock/mysql.cnf
+    cp ./vendor/andreapollastri/easydock/src/opcache.ini ./.easydock/opcache.ini
+    cp ./vendor/andreapollastri/easydock/src/php.ini ./.easydock/php.ini
     cp ./vendor/andreapollastri/easydock/src/docker-compose.yml ./docker-compose.yml
     cp ./vendor/andreapollastri/easydock/src/.easydock ./ed
     sed -i -e 's/${APP_SID-easydock}/${APP_SID-easydock'$(((RANDOM%1000000000)+1))'}/g' ./docker-compose.yml
     unlink ./docker-compose.yml-e
-    clear
-    ed_logo
-    echo "${bgpurple}${white} easydock is ready! All you have to do is run ${bold}sh ed up${reset}"
-    exit
-}
-
-
-############################################################ DEVCONTAINER
-
-ed_devcontainer() {
-    clear
-    ed_logo
-    rm -rf ./.devcontainer 
+    rm -rf ./.devcontainer
     mkdir ./.devcontainer 
     cp ./vendor/andreapollastri/easydock/src/devcontainer.json ./.devcontainer/devcontainer.json
     cp ./vendor/andreapollastri/easydock/src/devcontainer.yml ./.devcontainer/docker-compose.yml
     clear
     ed_logo
-    echo "${bgpurple}${white} easydock [DEVCONTAINER MORE] is ready!${reset}"
+    echo "${bgpurple}${white} easydock is ready! Use it as devcontainer or run ${bold}sh ed up${reset} "
+    exit
+}
+
+
+
+
+############################################################ LARAVEL ENV
+
+ed_laraenv() {
+    clear
+    ed_logo
+    echo "${blue}Wait...${br}${reset} "
+    clear
+    ed_logo
+    unlink ./.env
+    cp ./vendor/andreapollastri/easydock/src/laravel.env ./.env
+    php artisan key:generate
+    clear
+    ed_logo
+    echo "${bgpurple}${white} Laravel .env file has been updated!${reset} "
     exit
 }
 
@@ -98,7 +114,7 @@ ed_welcome() {
     command="$1"
     clear
     ed_logo
-    echo "${bgpurple}${white} easydock [DEVCONTAINER MODE] is ready!${reset}"
+    echo "${bgpurple}${white} easydock [DEVCONTAINER MODE] is ready!${reset} "
 }
 
 
@@ -111,23 +127,25 @@ ed_notfound() {
 
 ed_help() {
     echo "${bgpurple}${white}${bold} Easydock options list (use just 'ed' in vscode devcontainers) ${reset}${br}${br}"
-    echo "${bgwhite}${black} sh ed up ${reset}"
+    echo "${bgwhite}${black} sh ed up ${reset} "
     echo "Useful to start easydock (do not use it in vscode devcontainers).${br}"
-    echo "${bgwhite}${black} sh ed down ${reset}"
+    echo "${bgwhite}${black} sh ed down ${reset} "
     echo "Useful to stop easydock (do not use it in vscode devcontainers).${br}"
-    echo "${bgwhite}${black} sh ed conn ${reset}"
+    echo "${bgwhite}${black} sh ed conn ${reset} "
     echo "Useful to SSH into easydock (do not use it in vscode devcontainers).${br}"
-    echo "${bgwhite}${black} sh ed reset ${reset}"
+    echo "${bgwhite}${black} sh ed laraenv ${reset} "
+    echo "Useful to create a Laravel .env file optimized for easydock (this action will remove current .env file).${br}"
+    echo "${bgwhite}${black} sh ed reset ${reset} "
     echo "Useful to reset easydock.${br}"
-    echo "${bgwhite}${black} sh ed csfix ${reset}"
+    echo "${bgwhite}${black} sh ed csfix ${reset} "
     echo "Useful to run a PHP CS Fix process on your codebase.${br}"
-    echo "${bgwhite}${black} sh ed phpstan ${reset}"
+    echo "${bgwhite}${black} sh ed phpstan ${reset} "
     echo "Useful to run a PHP STAN process on your /app dir codebase (useful for Laravel).${br}"
-    echo "${bgwhite}${black} sh ed phpstandir {directory} ${reset}"
+    echo "${bgwhite}${black} sh ed phpstandir {directory} ${reset} "
     echo "Useful to run a PHP STAN process on your codebase dir.${br}"
-    echo "${bgwhite}${black} sh ed test ${reset}"
+    echo "${bgwhite}${black} sh ed test ${reset} "
     echo "Useful to run a all PHPUnit tests.${br}"
-    echo "${bgwhite}${black} sh ed testonly {filter} ${reset}"
+    echo "${bgwhite}${black} sh ed testonly {filter} ${reset} "
     echo "Useful to run a filtered PHPUnit test.${br}"
 }
 
@@ -137,7 +155,7 @@ ed_help() {
 ed_reset() {
     read -r -p "Are you sure to reset easydock (this command will reset container and database)? (Y/n): " -n 1 -r
     if [[ $REPLY =~ ^[Yy]$ ]]; then
-        echo "${br}${br}${blue}Wait...${br}${reset}"
+        echo "${br}${br}${blue}Wait...${br}${reset} "
         clear
         ed_logo
         docker-compose down -v
@@ -147,14 +165,14 @@ ed_reset() {
         rm -rf ./vendor/andreapollastri/easydock/data/*
         cp ./vendor/andreapollastri/easydock/src/.gitignore.dist ./vendor/andreapollastri/easydock/data/.gitignore
         ed_logo
-        echo "${bgpurple}${white} easydock has been reset! ${reset}"
+        echo "${bgpurple}${white} easydock has been reset! ${reset} "
     fi
     echo ${br}
 }
 
 
 ed_up() {
-    echo "${blue}Wait...${br}${reset}"
+    echo "${blue}Wait...${br}${reset} "
     sleep 1s
     clear
     docker-compose down
@@ -174,11 +192,11 @@ ed_up() {
 ed_down() {
     read -r -p "Are you sure to stop easydock? (Y/n): " -n 1 -r
     if [[ $REPLY =~ ^[Yy]$ ]]; then
-        echo "${br}${br}${blue}Wait...${br}${reset}"
+        echo "${br}${br}${blue}Wait...${br}${reset} "
         docker-compose down
         clear
         ed_logo
-        echo "${bgpurple}${white} easydock has been stopped! ${reset}"
+        echo "${bgpurple}${white} easydock has been stopped! ${reset} "
     fi
     echo ${br}
 }
@@ -309,9 +327,9 @@ while [ -n "$menu" ]; do
         ed_export
         exit
         ;;
-    devcontainer)
+    laraenv)
         shift
-        ed_devcontainer
+        ed_laraenv
         exit
         ;;
     *)

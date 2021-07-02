@@ -4,7 +4,7 @@
 
 # easydock ;)
 
-Docker LEMP easy integration
+Docker LEMP easy integration (with VScode Devcontainers Support)
 
 ![GitHub stars](https://img.shields.io/github/stars/andreapollastri/easydock?style=social)
 ![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/andreapollastri/easydock?label=version)
@@ -15,7 +15,7 @@ Easydock comes with:
 
 - nginx
 - PHP (PHP-FPM 5.6, 7.1, 7.2, 7.3, 7.4 or 8.0)
-- MySql (latest version of mariadb)
+- MySql (MySql 8)
 - Redis
 - MailHog
 - node/npm
@@ -23,11 +23,10 @@ Easydock comes with:
 - Composer
 - vscode devcontainers mode support
 - PHP Unit, CS Fix and PHP Stan tools (you can use them in pipelines too)
-
-## Requirements
-Docker Desktop and Composer on Mac OSx (M1 compatible)
  
-
+## Requirements
+Docker Desktop and Composer (Mac M1 compatible)
+  
 ## Installation
 - Integrate easydock in your PHP app via Composer
 
@@ -38,7 +37,7 @@ $ sh ./vendor/andreapollastri/easydock/src/.easydock export
 ```
 
 ## Getting started
-- After installation, if you need, add these vars to your `.env` file (default values are declared yet):
+- After installation, if you need, add these vars to your `.env` file (default values are declared yet so you don't need to create an .env file if you don't need to customize follow variables):
 ```
 # APPLICATION NAME (unique app-service-id)
 APP_SID=easydock
@@ -71,12 +70,7 @@ MH_PORT=8025
 NODE_V=16
 ```
 
-- To use easydock in vscode devcontainer mode, run:
-```
-$ sh ./vendor/andreapollastri/easydock/src/.easydock devcontainer
-```
-Then build container via vscode.
-
+- To use easydock in vscode devcontainer mode, build container via vscode
 
 - If you are not running Easydock into vscode devcontainer mode, use:
 ```
@@ -94,9 +88,6 @@ $ sh ed down
 ```
 to stop your istance
 
-
-- Nginx config will expose your project `/public` folder
-
 - Config your app DB connection (default)
 ```
 user: root
@@ -111,11 +102,15 @@ host: mailhog
 port: 1025
 ```
 
+- Nginx by default config will expose your project `/public` folder
+
+- You can customize all "devops" configurations with ".easydock" files (restart containers after changes)
+
 - To discover all Easydock functions use:
 ```
 $ sh ed help
 ```
-
+ 
 ## Security Vulnerabilities and Bugs
 If you discover any security vulnerability or any bug within easydock, please open an issue.
 
@@ -124,6 +119,5 @@ Thank you for considering contributing to this project!
 
 ## Licence
 Easydock is open-source software licensed under the MIT license.
-
  
 ### Enjoy easydock ;)

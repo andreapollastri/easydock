@@ -57,8 +57,6 @@ RUN apt-get install php-exif || true
 RUN docker-php-ext-install exif && docker-php-ext-enable exif || true
 RUN apt-get install php-redis || true 
 RUN docker-php-ext-install redis && docker-php-ext-enable redis || true
-RUN apt-get install php-mongodb || true 
-RUN docker-php-ext-install mongodb && docker-php-ext-enable mongodb || true
 RUN apt-get install php-bcmatch || true 
 RUN docker-php-ext-install bcmatch && docker-php-ext-enable bcmatch || true
 RUN apt-get install php-ctype || true 
@@ -94,6 +92,9 @@ RUN useradd -u 1000 -ms /bin/bash -g www www
 # User aliases
 RUN echo 'alias ll="ls -al"' >> /home/www/.bashrc
 RUN echo 'alias ed="sh ed"' >> /home/www/.bashrc
+RUN echo 'alias cd..="cd .."' >> /home/www/.bashrc
+RUN echo 'alias art="php artisan"' >> /home/www/.bashrc
+RUN echo 'alias migrate="php artisan migrate"' >> /home/www/.bashrc
 
 # User permissions
 RUN chown -R www:www /var/www

@@ -5,7 +5,8 @@
     "keywords": [
         "docker",
         "lemp",
-        "php"
+        "php",
+        "devcontainer"
     ],
     "license": "MIT",
     "require": {
