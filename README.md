@@ -38,7 +38,7 @@ $ sh ./vendor/andreapollastri/easydock/src/.easydock export
 ```
 
 ## Getting started
-- After installation, if you need, add these vars to your `.env` file (default values are declared yet):
+- After installation, if you need, add these vars to your `.env` file (default values are declared yet so you don't need to create an .env file if you don't need to customize follow variables):
 ```
 # APPLICATION NAME (unique app-service-id)
 APP_SID=easydock
@@ -94,10 +94,12 @@ $ sh ed down
 ```
 to stop your istance
 
+- To create a Laravel .env file for Easydock (within default values), run:
+```
+$ sh ./vendor/andreapollastri/easydock/src/.easydock laraenv
+```
 
-- Nginx config will expose your project `/public` folder
-
-- Config your app DB connection (default)
+- Or set your app configuration manually:
 ```
 user: root
 pass: secret
@@ -105,18 +107,14 @@ db: dockerdb
 host: mysql ( or redis for Redis )
 ```
 
-- Config your app SMTP conn (default - no user or pass are required)
 ```
 host: mailhog
 port: 1025
 ```
 
-- To create a Laravel .env file for Easydock, run:
-```
-$ sh ./vendor/andreapollastri/easydock/src/.easydock laraenv
-```
-Then build container via vscode.
- 
+- Nginx by default config will expose your project `/public` folder
+
+- You can customize all "devops" configurations with ".easydock" files
 
 - To discover all Easydock functions use:
 ```
