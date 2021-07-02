@@ -92,6 +92,32 @@ RUN useradd -u 1000 -ms /bin/bash -g www www
 # User aliases
 RUN echo 'alias ll="ls -al"' >> /home/www/.bashrc
 RUN echo 'alias ed="sh ed"' >> /home/www/.bashrc
+RUN echo 'alias cd..="cd .."' >> /home/www/.bashrc
+
+# Jeffrey Way aliases
+RUN echo 'alias gl="git log --graph --pretty=format:\'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset\' --abbrev-commit"' >> /home/www/.bashrc
+RUN echo 'alias wip="git add . && git commit -m \'wip\'"' >> /home/www/.bashrc
+RUN echo 'alias nah="git reset --hard && git clean -df"' >> /home/www/.bashrc
+RUN echo 'alias p="phpunit"' >> /home/www/.bashrc
+RUN echo 'alias pf="phpunit --filter "' >> /home/www/.bashrc
+RUN echo 'alias art="php artisan"' >> /home/www/.bashrc
+RUN echo 'alias migrate="php artisan migrate"' >> /home/www/.bashrc
+ 
+# Other aliases
+RUN echo 'alias l="php artisan"' >> /home/www/.bashrc
+RUN echo 'alias lara="php artisan"' >> /home/www/.bashrc
+RUN echo 'alias pa="php artisan"' >> /home/www/.bashrc
+RUN echo 'alias a="php artisan"' >> /home/www/.bashrc
+RUN echo 'alias cdo="composer dump-autoload -o"' >> /home/www/.bashrc
+RUN echo 'alias cu="composer update"' >> /home/www/.bashrc
+RUN echo 'alias ci="composer install"' >> /home/www/.bashrc
+RUN echo 'alias db-reset="php artisan migrate:reset && php artisan migrate --seed"' >> /home/www/.bashrc
+RUN echo 'alias c="composer"' >> /home/www/.bashrc
+RUN echo 'alias g="git"' >> /home/www/.bashrc
+RUN echo 'alias gs="git status"' >> /home/www/.bashrc
+RUN echo 'alias artisan="php artisan"' >> /home/www/.bashrc
+RUN echo 'alias cclear="php artisan cache:clear"' >> /home/www/.bashrc
+RUN echo 'alias fresh="artisan migrate:fresh --seed"' >> /home/www/.bashrc
 
 # User permissions
 RUN chown -R www:www /var/www
