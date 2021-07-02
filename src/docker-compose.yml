@@ -3,6 +3,7 @@ services:
 
   #APP
   app:
+    image: easydock:7.1
     build:
       context: .
       dockerfile: ./vendor/andreapollastri/easydock/Dockerfile
