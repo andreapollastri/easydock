@@ -102,7 +102,7 @@ ed_laraenv() {
     cp ./vendor/andreapollastri/easydock/src/laravel.env ./.env
     clear
     ed_logo
-    echo "${bgpurple}${white} Laravel .env file has been updated! "
+    echo "${bgpurple}${white} Laravel .env file has been updated!${reset} "
     exit
 }
 
