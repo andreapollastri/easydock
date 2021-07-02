@@ -66,6 +66,7 @@ ed_export() {
     ed_logo
     unlink ./docker-compose.yml
     unlink ./ed
+    mkdir ./easydock
     cp ./vendor/andreapollastri/easydock/src/nginx.conf ./easydock/nginx.conf
     cp ./vendor/andreapollastri/easydock/src/mysql.cnf ./easydock/mysql.cnf
     cp ./vendor/andreapollastri/easydock/src/opcache.ini ./easydock/opcache.ini
@@ -80,7 +81,7 @@ ed_export() {
     cp ./vendor/andreapollastri/easydock/src/devcontainer.yml ./.devcontainer/docker-compose.yml
     clear
     ed_logo
-    echo "${bgpurple}${white} easydock is ready! All you have to do is run ${bold}sh ed up${reset}"
+    echo "${bgpurple}${white} easydock is ready! Use it as devcontainer or run ${bold}sh ed up${reset}"
     exit
 }
 
