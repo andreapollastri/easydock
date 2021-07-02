@@ -100,6 +100,7 @@ ed_laraenv() {
     ed_logo
     unlink ./.env
     cp ./vendor/andreapollastri/easydock/src/laravel.env ./.env
+    php artisan key:generate
     clear
     ed_logo
     echo "${bgpurple}${white} Laravel .env file has been updated!${reset} "
